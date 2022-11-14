@@ -1,9 +1,21 @@
-<div>
-  <h1>Header</h1>
+<div class="container fluid shadow">
+  <header class="d-flex flex-wrap justify-content-center ">
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+      <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+      <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+    </ul>
+  </header>
 </div>
 
+<div>
+  <a routerLink="/about-us">About Us</a>
+  <a routerLink="/how-it-works">How it works</a>
+  <a routerLink="/auth/login" [queryParams]="{name:'Tofik', email: email}">Login</a>
+  <a routerLink="/public/all-books">All Books</a>
+  <a [routerLink]="['/public/book-details', '1', 'author', '3']">Details from App </a>
+
+</div>
 <router-outlet></router-outlet>
-
-<div>
-  <h1>Footer</h1>
-</div>
