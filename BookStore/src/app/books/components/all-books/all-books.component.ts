@@ -1,15 +1,51 @@
 import { Component, OnInit } from '@angular/core';
+import { CounterService } from 'src/app/shared/services/counter.service';
+import { BookModel } from '../../models/book.model';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-all-books',
   templateUrl: './all-books.component.html',
-  styleUrls: ['./all-books.component.scss']
+  styleUrls: ['./all-books.component.scss'],
 })
 export class AllBooksComponent implements OnInit {
 
-  constructor() { }
+  private _pageTitle: string;
 
-  ngOnInit(): void {
+  public set pageTitle(value: string){
+    this._pageTitle = value;
   }
 
+  public get pageTitle(){
+    return this._pageTitle;
+  }
+
+  public books: BookModel[] = [];
+
+  constructor(public bookService: BookService, public _counterService: CounterService) {
+/*  var bookService = new BookService();
+    this.books = bookService.getBooks(); */
+  }
+
+  ngOnInit(): void {
+    this.pageTitle = 'All books'
+    const allBooks = this.bookService.getBooks();
+    allBooks.forEach(b=>{
+      var obj = new BookModel();
+      obj.id = b.id;
+      obj.author = b.author;
+      obj.price = b.price;
+      obj.title = b.title;
+      obj.totalPages = b.totalPages;
+      this.books.push(obj);
+    })
+    console.log(this.books);
+  }
+
+  public increase(): void {
+    this._counterService.incCounter();
+  }
+  public decrease(): void {
+    this._counterService.decCounter();
+  }
 }
