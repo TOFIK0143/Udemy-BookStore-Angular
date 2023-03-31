@@ -35,12 +35,12 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterViewChecked, O
   }
 
   ngAfterViewInit(): void {
-    console.log(this.btnCounter);
-    this.btnCounter.nativeElement.innerHTML = 'Button text update ';
+    /* console.log(this.btnCounter);
+    this.btnCounter.nativeElement.innerHTML = 'Button text update '; */
   }
 
   ngOnInit(): void {
-    console.log('Hello from child ngOn init');
+    /* console.log('Hello from child ngOn init'); */
     /* this.timer(); */
   }
 
