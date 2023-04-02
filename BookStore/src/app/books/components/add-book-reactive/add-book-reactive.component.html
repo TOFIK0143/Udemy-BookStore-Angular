@@ -3,16 +3,35 @@
 <button (click)="updateFormValues()">Update values</button>
 
 <form class="add-book-form" (ngSubmit)="saveBook()" [formGroup]="addBookForm">
+  <mat-radio-group aria-label="Select an option" class="toggle" formControlName="formatType">
+    <mat-radio-button value="pdf">PDF</mat-radio-button>
+    <mat-radio-button value="doc">DOC</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Doc Format</mat-label>
+    <input matInput type="text" name="docFormat" placeholder="DocFormat" formControlName="docFormat">
+    <mat-icon matSuffix>file_upload</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>PDF Format</mat-label>
+    <input matInput type="text" name="pdfFormat" placeholder="PDFFormat" formControlName="pdfFormat">
+    <mat-icon matSuffix>upload_file</mat-icon>
+  </mat-form-field>
+
   <mat-form-field appearance="outline">
     <mat-label>Title</mat-label>
     <input matInput type="text" name="title" placeholder="Title" formControlName="title">
     <mat-icon matSuffix>title</mat-icon>
+    <mat-hint> {{titleErrorMessage}} </mat-hint>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Author</mat-label>
     <input matInput type="text" name="author" placeholder="Author" formControlName="author">
     <mat-icon matSuffix>person</mat-icon>
+    <!-- <mat-hint> {{authorErrorMessage}} </mat-hint> -->
   </mat-form-field>
 
   <mat-form-field appearance="outline">
