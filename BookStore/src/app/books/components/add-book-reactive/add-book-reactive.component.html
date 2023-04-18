@@ -27,12 +27,18 @@
     <mat-hint> {{titleErrorMessage}} </mat-hint>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Author</mat-label>
-    <input matInput type="text" name="author" placeholder="Author" formControlName="author">
-    <mat-icon matSuffix>person</mat-icon>
-    <!-- <mat-hint> {{authorErrorMessage}} </mat-hint> -->
-  </mat-form-field>
+  <div formArrayName="authors">
+    <div *ngFor="let auth of authors.controls; let i=index;">
+      <mat-form-field appearance="outline" [formGroupName]="i">
+        <mat-label>Author</mat-label>
+        <input matInput type="text" name="author" placeholder="Autho's fullName'" formControlName="fullName">
+        <mat-icon matSuffix>person</mat-icon>
+        <!-- <mat-hint> {{authorErrorMessage}} </mat-hint> -->
+      </mat-form-field>
+      <button mat-button (click)="removeAuthor(i)">Remove</button>
+    </div>
+    <button (click)="addMoreAuthor()" mat-button>Add More</button>
+  </div>
 
   <mat-form-field appearance="outline">
     <mat-label>Pages</mat-label>

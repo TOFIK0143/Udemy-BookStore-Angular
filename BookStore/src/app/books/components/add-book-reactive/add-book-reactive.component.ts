@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../services/book.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class AddBookReactiveComponent implements OnInit {
   public addBookForm: FormGroup;
 
 
-  constructor(private _bookService: BookService) {
+  constructor(private _bookService: BookService, private _formBuilder: FormBuilder) {
 
   }
 
@@ -57,6 +57,18 @@ export class AddBookReactiveComponent implements OnInit {
     });
   }
 
+  public get authors() {
+    return <FormArray>this.addBookForm.get('authors')
+  }
+
+  public addMoreAuthor(): void{
+    this.authors.push(this.getAuthorControl());
+  }
+
+  public removeAuthor(i: number):void {
+    this.authors.removeAt(i);
+  }
+
   saveBook(): void {
     console.log(this.addBookForm.value);
     /*  const book: BookModel = new BookModel();
@@ -79,21 +91,28 @@ export class AddBookReactiveComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.addBookForm = new FormGroup({
-      title: new FormControl('Tofik', [Validators.required, Validators.minLength(6)]),
-      author: new FormControl('', Validators.required),
-      totalPages: new FormControl(),
-      price: new FormGroup({
-        currency: new FormControl(),
-        value: new FormControl()
+    this.addBookForm = this._formBuilder.group({
+      title: ['this is default',[Validators.required, Validators.maxLength(10)]],
+    //  author: ['', Validators.required],
+      totalPages: '',
+      price: this._formBuilder.group({
+        currency: '',
+        value: '',
       }),
-      publishedOn: new FormControl(),
-      isPublished: new FormControl(),
-      formatType: new FormControl(),
-      pdfFormat: new FormControl(),
-      docFormat: new FormControl()
+      publishedOn: '',
+      isPublished: '',
+      formatType: '',
+      pdfFormat: '',
+      docFormat: '',
+      authors: this._formBuilder.array([this.getAuthorControl(),this.getAuthorControl()]),
     });
 
+  }
+
+  private getAuthorControl(): FormGroup{
+    return  this._formBuilder.group({
+      fullName: '',
+    })
   }
 
   private validateTitleControl(titleControl: FormControl): void {
